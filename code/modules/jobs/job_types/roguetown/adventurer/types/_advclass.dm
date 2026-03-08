@@ -41,8 +41,14 @@
 	/// Subclass languages.
 	var/list/subclass_languages
 
+	/// Subclass virtues.
+	var/list/subclass_virtues
+
 	/// Spellpoints. If More than 0, Gives Prestidigitation & the Learning Spell.
 	var/subclass_spellpoints = 0
+
+	/// Pool-based spell point system. If set, uses pool system instead of flat spellpoints, even if they somehow end up with spellpoints from other sources.
+	var/list/subclass_spell_point_pools
 
 	/// List of items to put in an item stash
 	var/list/subclass_stashed_items = list()
@@ -52,6 +58,9 @@
 
 	/// Set to FALSE to skip apply_character_post_equipment() which applies virtue, flaw, loadout
 	var/applies_post_equipment = TRUE
+
+	/// set to TRUE to reset stats in equipme, clearing any racial bonuses or bonuses the character had before becoming this class
+	var/reset_stats = FALSE
 
 	var/datum/class_age_mod/age_mod = null
 
@@ -99,6 +108,9 @@
 		for(var/lang in subclass_languages)
 			H.grant_language(lang)
 
+	if(reset_stats)
+		H.reset_stats()
+
 	if(length(subclass_stats))
 		for(var/stat in subclass_stats)
 			H.change_stat(stat, subclass_stats[stat])
@@ -106,6 +118,16 @@
 	if(length(subclass_skills))
 		for(var/skill in subclass_skills)
 			H.adjust_skillrank_up_to(skill, subclass_skills[skill], TRUE)
+
+	// Set up spell point pools / spellpoints before virtues so Arcyne Potential can detect and add to them
+	if(LAZYLEN(subclass_spell_point_pools))
+		H.mind?.set_spell_point_pools(subclass_spell_point_pools)
+	else if(subclass_spellpoints > 0)
+		H.mind?.adjust_spellpoints(subclass_spellpoints)
+
+	if(length(subclass_virtues))
+		for(var/virtue in subclass_virtues)
+			apply_virtue(H, new virtue)
 
 	if(age_mod)
 		if(istype(age_mod))
@@ -116,8 +138,6 @@
 			return
 		for(var/stashed_item in subclass_stashed_items)
 			H.mind?.special_items[stashed_item] = subclass_stashed_items[stashed_item]
-	if(subclass_spellpoints > 0)
-		H.mind?.adjust_spellpoints(subclass_spellpoints)
 
 	// After the end of adv class equipping, apply a SPECIAL trait if able
 

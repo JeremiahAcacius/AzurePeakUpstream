@@ -9,7 +9,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
-	tutorial = "Typically a denizen of the sparsely populated Azurian woods, you volunteered up with the wardens--a group of ranger types who keep a vigil over the untamed wilderness. \
+	tutorial = "Typically a denizen of the sparsely populated Azurian woods, you volunteered up with the wardens - a group of ranger types who keep a vigil over the untamed wilderness. \
 				While Wardens have no higher authority, operating as a fraternity of rangers, you will be called upon as members of the garrison by the Marshal or the Crown. \
 				Serve their will and recieve what a ranger craves the most - freedom and safety."
 	display_order = JDO_WARDEN
@@ -84,7 +84,7 @@
 	beltr = /obj/item/quiver/arrows
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/warden_machete
 	backpack_contents = list(
-		/obj/item/storage/keyring/guard = 1,
+		/obj/item/storage/keyring/warden = 1,
 		/obj/item/flashlight/flare/torch/lantern = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
@@ -102,7 +102,7 @@
 			"Path of the Rous"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/rat,
 			"None"
 		)
-		var/helmchoice = input(H, "Choose your Path.", "HELMET SELECTION") as anything in helmets
+		var/helmchoice = input(H, "Choose your path.", "HELMET SELECTION") as anything in helmets
 		if(helmchoice != "None")
 			head = helmets[helmchoice]
 
@@ -111,7 +111,7 @@
 			"Antlered Shroud"		= /obj/item/clothing/head/roguetown/roguehood/warden/antler,
 			"None"
 		)
-		var/hoodchoice = input(H, "Choose your Shroud.", "HOOD SELECTION") as anything in hoods
+		var/hoodchoice = input(H, "Choose your shroud.", "HOOD SELECTION") as anything in hoods
 		if(hoodchoice != "None")
 			mask = hoods[hoodchoice]
 	if(H.mind)
@@ -136,7 +136,7 @@
 		/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/bows = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/crossbows = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
@@ -164,7 +164,7 @@
 	beltl = /obj/item/rogueweapon/huntingknife
 	r_hand = /obj/item/rogueweapon/spear
 	backpack_contents = list(
-		/obj/item/storage/keyring/guard = 1,
+		/obj/item/storage/keyring/warden = 1,
 		/obj/item/flashlight/flare/torch/lantern = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/signal_horn = 1

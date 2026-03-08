@@ -33,6 +33,7 @@
 		/datum/advclass/mercenary/vaquero,
 		/datum/advclass/mercenary/freelancer,
 		/datum/advclass/mercenary/freelancer/lancer,
+		/datum/advclass/mercenary/freelancer/sabrist,
 		/datum/advclass/mercenary/grenzelhoft,
 		/datum/advclass/mercenary/grenzelhoft/halberdier,
 		/datum/advclass/mercenary/grenzelhoft/crossbowman,
@@ -52,5 +53,25 @@
 		/datum/advclass/mercenary/underdweller,
 		/datum/advclass/mercenary/grudgebearer,
 		/datum/advclass/mercenary/grudgebearer/soldier,
-		/datum/advclass/mercenary/trollslayer
+		/datum/advclass/mercenary/trollslayer,
+		/datum/advclass/mercenary/lirvanmerc
 	)
+
+/datum/job/roguetown/mercenary/after_spawn(mob/living/L, mob/M, latejoin = FALSE)
+	..()
+	if(L && ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(!H.mind)
+			return
+
+		// Get the mercenary statue from SSroguemachine
+		var/obj/structure/roguemachine/talkstatue/mercenary/statue = SSroguemachine.mercenary_statue
+		if(!statue && SSroguemachine.mercenary_statues.len)
+			statue = SSroguemachine.mercenary_statues[1]
+		if(statue)
+			// Send a message with a clickable link to register remotely
+			to_chat(M, span_boldnotice("I sense a mercenary statue calling out to me..."))
+			to_chat(M, span_notice("<a href='?src=[REF(statue)];register=[REF(H)]'>Touch the statue from afar</a> to register myself as available for contract."))
+
+			// Store the registration request
+			statue.pending_registrations[H.key] = H

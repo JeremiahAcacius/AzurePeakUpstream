@@ -221,8 +221,8 @@
 		/obj/item/quiver/javelin = 2,
 		/obj/item/quiver/sling = 2,
 		/obj/item/quiver/Warrows = 1,
-		/obj/item/quiver/Wbolts = 1,
-		/obj/item/quiver/bolts = 2,
+		/obj/item/quiver/bolt/water = 1,
+		/obj/item/quiver/bolt/standard = 2,
 		/obj/item/rogueweapon/mace = 2,
 		/obj/item/rogueweapon/mace/cudgel = 2,
 		/obj/item/rogueweapon/mace/goden/steel/paalloy = 2,
@@ -347,8 +347,8 @@
 		/obj/item/quiver/arrows = 2,
 		/obj/item/quiver/sling = 2,
 		/obj/item/quiver/Warrows = 1,
-		/obj/item/quiver/Wbolts = 1,
-		/obj/item/quiver/bolts = 2,
+		/obj/item/quiver/bolt/water = 1,
+		/obj/item/quiver/bolt/standard = 2,
 		/obj/item/quiver/bodkin = 2,
 		/obj/item/rogueweapon/mace/steel = 2,
 		/obj/item/rogueweapon/mace/goden/steel = 2,
@@ -370,7 +370,6 @@
 		/obj/item/rogueweapon/katar = 1,
 		/obj/item/rogueweapon/spear/billhook = 2,
 		/obj/item/rogueweapon/halberd = 2,
-		/obj/item/rogueweapon/halberd/glaive = 2,
 		/obj/item/rogueweapon/eaglebeak = 1,
 		/obj/item/rogueweapon/greatsword = 1,
 		/obj/item/rogueweapon/estoc = 1,
@@ -434,6 +433,7 @@
 		/obj/item/reagent_containers/food/snacks/rogue/meat/coppiette = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/cheddarwedge/aged = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/meat/salami = 1,
+		/obj/item/reagent_containers/food/snacks/grown/apple/gold = 1,
 	)
 
 //x3 of the above

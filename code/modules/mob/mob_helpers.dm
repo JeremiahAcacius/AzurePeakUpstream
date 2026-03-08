@@ -510,6 +510,9 @@
 		hud_used.action_intent.switch_intent(r_index,l_index,oactive)
 
 /mob/proc/update_a_intents()
+	if(QDELETED(src))
+		return
+	stop_attack()
 	QDEL_LIST(possible_a_intents)
 	QDEL_LIST(possible_offhand_intents)
 	var/list/intents = list()
@@ -595,6 +598,7 @@
 				input = null
 				mmb_intent = null
 			else
+				qdel(mmb_intent)
 				mmb_intent = new INTENT_KICK(src)
 		if(QINTENT_SPECIAL)
 			if(mmb_intent?.type == INTENT_SPECIAL)
@@ -602,6 +606,7 @@
 				input = null
 				mmb_intent = null
 			else
+				qdel(mmb_intent)
 				mmb_intent = new INTENT_SPECIAL(src)
 		if(QINTENT_BITE)
 			if(mmb_intent?.type == INTENT_BITE)
@@ -609,6 +614,7 @@
 				input = null
 				mmb_intent = null
 			else
+				qdel(mmb_intent)
 				mmb_intent = new INTENT_BITE(src)
 		if(QINTENT_JUMP)
 			if(mmb_intent?.type == INTENT_JUMP)
@@ -616,6 +622,7 @@
 				input = null
 				mmb_intent = null
 			else
+				qdel(mmb_intent)
 				mmb_intent = new INTENT_JUMP(src)
 		if(QINTENT_GIVE)
 			if(mmb_intent?.type == INTENT_GIVE)
@@ -623,6 +630,7 @@
 				input = null
 				mmb_intent = null
 			else
+				qdel(mmb_intent)
 				mmb_intent = new INTENT_GIVE(src)
 		if(QINTENT_SPELL)
 			if(mmb_intent)
@@ -1053,7 +1061,7 @@
 	if(mind)
 		. += mind.assigned_role
 		. += mind.special_role //In case there's something special leftover, try to avoid
-		for(var/datum/antagonist/A in mind.antag_datums)
+		for(var/datum/antagonist/A as anything in mind.antag_datums)
 			. += "[A.type]"
 
 ///Can the mob see reagents inside of containers?
@@ -1072,7 +1080,7 @@
 		if(!J)
 			return "unknown"
 		used_title =  J.display_title || J.title
-		if(J.f_title && (pronouns == SHE_HER || pronouns == THEY_THEM_F))
+		if(J.f_title && (titles_pref == TITLES_F))
 			used_title = J.f_title
 		if(J.advjob_examine)
 			used_title = advjob

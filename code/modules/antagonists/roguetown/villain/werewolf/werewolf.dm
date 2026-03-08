@@ -32,6 +32,8 @@
 		TRAIT_STRONGBITE,
 		TRAIT_LYCANRESILENCE,
 		TRAIT_CHUNKYFINGERS, //So they can no longer use weapons at all.
+		TRAIT_UNLYCKERABLE, //Literal archenemy
+		TRAIT_ZOMBIE_IMMUNE
 	)
 	confess_lines = list(
 		"THE BEAST INSIDE ME!",
@@ -44,6 +46,11 @@
 	var/transforming
 	var/untransforming
 	var/wolfname = "Verewolf"
+	var/static/list/dendor_cries = list('sound/effects/werewolf_sounds/wscream1.ogg',
+								'sound/effects/werewolf_sounds/wscream2.ogg',
+								'sound/effects/werewolf_sounds/wscream3.ogg',
+								'sound/effects/werewolf_sounds/wscream4.ogg',
+								'sound/effects/werewolf_sounds/wscream5.ogg')
 
 /datum/antagonist/werewolf/lesser
 	name = "Lesser Verewolf"
@@ -57,10 +64,20 @@
 		return span_boldnotice("A young lupine kin.")
 	if(istype(examined_datum, /datum/antagonist/werewolf))
 		return span_boldnotice("An elder lupine kin.")
+	if(istype(examined_datum, /datum/antagonist/maniac))
+		return span_boldnotice("A fool.")
+	if(istype(examined_datum, /datum/antagonist/dreamwalker))
+		return span_boldnotice("The dreamer has this one in his grasp.")
+	if(istype(examined_datum, /datum/antagonist/gnoll))
+		return span_boldnotice("An abomination.")
 	if(examiner.Adjacent(examined))
+		if(istype(examined_datum, /datum/antagonist/lich))
+			return span_boldnotice("A deadite freek.")
 		if(istype(examined_datum, /datum/antagonist/vampire))
+			return span_boldnotice("A putrid vampyr, I should watch my back.")
+		if(istype(examined_datum, /datum/antagonist/vampire/lord))
 			if(transformed)
-				return span_boldwarning("An Ancient Vampire. I must be careful!")
+				return span_boldwarning("An ancient vampyr. I must be careful!")
 
 /datum/antagonist/werewolf/on_gain()
 	greet()
@@ -92,11 +109,17 @@
 
 /datum/antagonist/werewolf/greet()
 	to_chat(owner.current, span_userdanger("Since a bite long, long ago, Dendor's Madness has welled within me. Before the Moonlight, I will sate my hallowed Hunger."))
+	var/picked_sound = pick(dendor_cries)
+	owner.current.playsound_local(get_turf(owner.current), picked_sound, 100)
 	return ..()
 
 /datum/antagonist/werewolf/lesser/greet()
-	// leave this empty so that lesser verevolf's dont get the greeting on bite.
-	// there is probably a better way to do this but this works until sm1 smarter inevitably rewrites WW.
+	// DO NOT call parent. 
+	// lesser verevolfs should always be created by alpha bites, which have their own way of informing the user
+	// they are a werewolf. despite this, i still want to provide a new audio cue in the form of [THE CRY].
+	// remove it if it's obstructive. thx.
+	var/picked_sound = pick(dendor_cries)
+	owner.current.playsound_local(get_turf(owner.current), picked_sound, 100)
 
 /mob/living/carbon/human/proc/can_werewolf()
 	if(!mind)
@@ -106,6 +129,9 @@
 	if(mind.has_antag_datum(/datum/antagonist/werewolf))
 		return FALSE
 	if(mind.has_antag_datum(/datum/antagonist/skeleton))
+		return FALSE
+	//No cross species pollination!!!
+	if(mind.has_antag_datum(/datum/antagonist/gnoll))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SILVER_BLESSED))
 		return FALSE
@@ -169,7 +195,6 @@
 	repair_time = 15 SECONDS
 	interrupt_damount = 35
 
-
 /datum/intent/simple/werewolf
 	name = "claw"
 	icon_state = "inchop"
@@ -184,7 +209,6 @@
 	miss_sound = "bluntwooshlarge"
 	item_d_type = "slash"
 
-
 /datum/intent/mace/smash/werewolf
 	name = "thrash"
 	desc = "A powerful, smash of lycan muscle that deals normal damage but can throw a standing opponent back and slow them down, based on your strength. Ineffective below 10 strength. Slowdown & Knockback scales to your Strength up to 15 (1 - 5 tiles). Cannot be used consecutively more than every 5 seconds on the same target. Prone targets halve the knockback distance."
@@ -192,7 +216,6 @@
 	maxrange = 5
 	chargetime = 1
 	penfactor = 60
-
 
 /obj/item/rogueweapon/werewolf_claw
 	name = "Verevolf Claw"
@@ -219,6 +242,7 @@
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	item_flags = DROPDEL
 	special = /datum/special_intent/axe_swing	//Good pairing for area denial for WW's.
+	experimental_inhand = FALSE
 
 /obj/item/rogueweapon/werewolf_claw/right
 	icon_state = "claw_r"

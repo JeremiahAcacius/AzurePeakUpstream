@@ -21,6 +21,7 @@
 	round_contrib_points = 2
 	cmode_music = 'sound/music/combat_noble.ogg'
 	job_traits = list(TRAIT_NOBLE)
+	vice_restrictions = list(/datum/charflaw/mute, /datum/charflaw/unintelligible) //Needs to use the throat - sometimes
 	job_subclasses = list(
 		/datum/advclass/councillor/herald,
 		/datum/advclass/councillor/advisor,
@@ -56,7 +57,7 @@
 
 
 /datum/advclass/councillor/advisor
-	name = "Advisor"
+	name = "Council Advisor"
 	tutorial = "You have a keen sense of political acumen. Much like the jester, albeit in a less farcical manner, you are well-suited to giving the court advice on daily matters. They might even listen if you tell them that a plan of theirs may have a hole in it that would sink it. You may be the lowest rung of the ladder, but that rung still towers over everyone else in town."
 	outfit = /datum/outfit/job/roguetown/councillor/advisor
 	category_tags = list(CTAG_COUNCILLOR)
@@ -113,7 +114,7 @@
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/steel
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather
-	beltl = /obj/item/storage/keyring/councillor
+	beltl = /obj/item/roguekey/manor
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
 	cloak = /obj/item/clothing/cloak/half/red
 	if(H.mind)
@@ -130,7 +131,7 @@
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/steel
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather
-	beltl = /obj/item/storage/keyring/councillor
+	beltl = /obj/item/roguekey/manor
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
 	cloak = /obj/item/clothing/cloak/half/red
 	if(H.mind)
@@ -147,7 +148,7 @@
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/gold
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather/plaquesilver
-	beltl = /obj/item/storage/keyring/councillor/cofferer
+	beltl = /obj/item/storage/keyring/steward
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
 	cloak = /obj/item/clothing/cloak/half/red
 	if(H.mind)

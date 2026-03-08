@@ -18,15 +18,19 @@
 #define COVERAGE_NASAL			( HEAD | HAIR | NOSE )
 #define COVERAGE_SKULL			( HEAD | HAIR )
 
-#define COVERAGE_VEST			( CHEST | VITALS )
-#define COVERAGE_SHIRT			( CHEST | VITALS | ARMS )
-#define COVERAGE_TORSO			( CHEST | GROIN | VITALS )
-#define COVERAGE_ALL_BUT_ARMS	( CHEST | GROIN | VITALS | LEGS )
-#define COVERAGE_ALL_BUT_LEGS	( CHEST | GROIN | VITALS | ARMS )
-#define COVERAGE_FULL			( CHEST | GROIN | VITALS | LEGS | ARMS )
+#define COVERAGE_VEST				( CHEST | VITALS )
+#define COVERAGE_SHIRT				( CHEST | VITALS | ARMS )
+#define COVERAGE_TORSO				( CHEST | GROIN | VITALS )
+#define COVERAGE_ALL_BUT_ARMS		( CHEST | GROIN | VITALS | LEGS | FEET)
+#define COVERAGE_ALL_BUT_LEGS		( CHEST | GROIN | VITALS | ARMS | HANDS)
+#define COVERAGE_ALL_BUT_HANDLEGS	( CHEST | GROIN | VITALS | ARMS)
+#define COVERAGE_ALL_BUT_HANDFEET	( CHEST | GROIN | VITALS | LEGS | ARMS)
+#define COVERAGE_ALL_BUT_ARMFEET	( CHEST | GROIN | VITALS | LEGS )
+#define COVERAGE_FULL				( CHEST | GROIN | VITALS | LEGS | ARMS | HANDS | FEET)
+#define COVERAGE_NEARLY_FULL		( HEAD | CHEST | GROIN | VITALS | LEGS | ARMS | HANDS | FEET)
 
 #define COVERAGE_PANTS			( GROIN | LEGS )
-#define COVERAGE_FULL_LEG		( LEGS | FEET )
+#define COVERAGE_ALL_BUT_HANDFEET_LEG		( LEGS | FEET )
 
 /*
 Balloon Alert / Floating Text defines
@@ -39,7 +43,9 @@ Balloon Alert / Floating Text defines
 	/datum/species/human/northern,\
 	/datum/species/human/halfelf,\
 	/datum/species/elf/dark,\
+	/datum/species/elf/dark/raider,\
 	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
 	/datum/species/dwarf/mountain,\
 	/datum/species/tieberian,\
 	/datum/species/aasimar,\
@@ -63,6 +69,7 @@ Balloon Alert / Floating Text defines
 #define RACES_RESPECTED \
 	/datum/species/human/northern,\
 	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
 	/datum/species/human/halfelf,\
 	/datum/species/dwarf/mountain,\
 	/datum/species/aasimar,\
@@ -108,6 +115,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/human/halfelf,\
 	/datum/species/elf/dark,\
 	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
 	/datum/species/dwarf/mountain,\
 	/datum/species/tieberian,\
 	/datum/species/aasimar,\
@@ -129,7 +137,9 @@ Balloon Alert / Floating Text defines
 	/datum/species/human/northern,\
 	/datum/species/human/halfelf,\
 	/datum/species/elf/dark,\
+	/datum/species/elf/dark/raider,\
 	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
 	/datum/species/dwarf/mountain,\
 	/datum/species/tieberian,\
 	/datum/species/aasimar,\
@@ -156,7 +166,9 @@ Balloon Alert / Floating Text defines
 	/datum/species/human/northern,\
 	/datum/species/human/halfelf,\
 	/datum/species/elf/dark,\
+	/datum/species/elf/dark/raider,\
 	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
 	/datum/species/tieberian,\
 	/datum/species/aasimar,\
 	/datum/species/lizardfolk,\
@@ -196,6 +208,8 @@ Balloon Alert / Floating Text defines
 #define ALL_ACOLYTE_PATRONS list(/datum/patron/divine/undivided, /datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/pestra, /datum/patron/divine/ravox, /datum/patron/divine/eora, /datum/patron/divine/xylix, /datum/patron/divine/necra, /datum/patron/divine/abyssor, /datum/patron/divine/malum) // Currently unused.
 
 #define ALL_DIVINE_PATRONS list(/datum/patron/divine/undivided, /datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/abyssor, /datum/patron/divine/ravox, /datum/patron/divine/necra, /datum/patron/divine/xylix, /datum/patron/divine/pestra, /datum/patron/divine/malum, /datum/patron/divine/eora)
+
+#define ALL_GRONNIC_PATRONS list(/datum/patron/inhumen/zizo, /datum/patron/inhumen/graggar, /datum/patron/inhumen/matthios, /datum/patron/inhumen/baotha, /datum/patron/divine/abyssor, /datum/patron/divine/dendor)
 
 #define ALL_INHUMEN_PATRONS list(/datum/patron/inhumen/zizo, /datum/patron/inhumen/graggar, /datum/patron/inhumen/matthios, /datum/patron/inhumen/baotha)
 
@@ -288,6 +302,8 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_LSKELETON		"CAT_LSKELETON"		// Lich Fortified Skeleton classes
 #define CTAG_NSKELETON		"CAT_NSKELETON"		// Necromancer Greater Skeleton classes
 #define CTAG_LICKER_WRETCH  "CAT_LICKER_WRETCH" // Licker wretch. Nuff said.
+#define CTAG_GNOLL			"CAT_GNOLL"			// Wretch-esque gnolls, graggar's chosen.
+#define CTAG_GNOLL_IMPURE	"CAT_GNOLL_IMPURE"	// Reward for beating enough gnolls.
 
 #define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.
 #define CTAG_WATCH			"CAT_WATCH"			// Watch class - Handles Town Watch class selector
@@ -298,6 +314,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_MERCENARY		"CAT_MERCENARY"		// Mercenary class - Handles Mercenary class selector
 #define CTAG_HAND			"CAT_HAND"			// Hand class - Handles Hand class selector
 #define CTAG_TEMPLAR		"CAT_TEMPLAR"		// Templar class - Handles Templar class selector
+#define CTAG_SEXTON			"CAT_SEXTON"		// Sexton class - Handles Sexton class selector
 #define CTAG_HEIR			"CAT_HEIR"			// Prince(cess) class - Handles Heir class selector
 #define CTAG_LORD			"CAT_LORD"			// Lord class - Handles Lord class selector
 #define CTAG_SQUIRE			"CAT_SQUIRE"		// Squire class - Handles Squire class selector
@@ -305,17 +322,21 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_MARSHAL		"CAT_MARSHAL"		// Marshal class
 #define CTAG_SENESCHAL		"CAT_SENESCHAL"		// Seneschal's aesthetic choices. 
 #define CTAG_SERVANT		"CAT_SERVANT"		// Servant's aesthetic choices.
-#define CTAG_CAPTAIN		"CAT_CAPTAIN"		// Handles Captain class selector
 #define CTAG_WAPPRENTICE	"CTAG_WAPPRENTICE"	// Mage Apprentice Classes - Handles Mage Apprentices class selector
 #define CTAG_GUILDSMASTER 	"CAT_GUILDSMASTER"	// Guildsmaster class - Handles Guildsmaster class selector 
 #define CTAG_GUILDSMEN 		"CAT_GUILDSMEN"		// Guildsmen class - Handles Guildsmen class selector
 #define CTAG_BATHWORKER		"CAT_BATHWORKER"	// Bathhouse Attendant's aesthetic choices.
 
+// List of Migrant Classes.
+#define CTAG_HFT_LORD "CAT_HFT_LORD"  // Heartfelt Lord Class - Handles Heartfelt Lord class selector.
+#define CTAG_HFT_HAND "CAT_HFT_HAND"  // Heartfelt Hand Class - Handles Heartfelt Hand class selector.
+#define CTAG_HFT_KNIGHT "CAT_HFT_KNIGHT"  // Heartfelt Knight Class - Handles Heartfelt Knight class selector.
+#define CTAG_HFT_RETINUE "CAT_HFT_RETINUE"  // Heartfelt Retinue Class - Handles Heartfelt Retinue class selector.
+
 // List of mono-class categories. Only here for standardisation sake, but can be added on if desired.
 #define CTAG_BISHOP			"CAT_BISHOP"
 #define CTAG_MARTYR			"CAT_MARTYR"
 #define CTAG_ACOLYTE		"CAT_ACOLYTE"
-#define CTAG_SEXTON			"CAT_SEXTON"
 #define CTAG_DRUID			"CAT_DRUID"
 
 #define CTAG_STEWARD		"CAT_STEWARD"
@@ -360,6 +381,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CLASS_CAT_NOBLE	"Noble"
 #define CLASS_CAT_CLERIC "Cleric"
 #define CLASS_CAT_ROGUE	"Rogue"
+#define CLASS_CAT_MYSTIC "Mystic"
 #define CLASS_CAT_RANGER "Ranger"
 #define CLASS_CAT_MAGE "Mage"
 #define CLASS_CAT_WARRIOR "Warrior"
@@ -376,3 +398,13 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CLASS_CAT_OTAVA "Otava"
 #define CLASS_CAT_KAZENGUN "Kazengun"
 #define CLASS_CAT_RACIAL "Race Exclusive" //Used for black oaks, grudgebearer dwarves, etc.
+
+//Migrant categories
+#define CLASS_CAT_HFT_COURT "Upper Court"
+#define CLASS_CAT_HFT_GUARD "House Guard"
+#define CLASS_CAT_HFT_WORKER "Workers"
+
+//Armor material categories
+#define ARMOR_MAT_PLATE 1
+#define ARMOR_MAT_LEATHER 2
+#define ARMOR_MAT_CHAINMAIL 3

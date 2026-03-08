@@ -295,7 +295,7 @@
 	verbage_simple = "transmute"
 
 /datum/crafting_recipe/roguetown/alchemy/r2dia
-	name = "blortz to diamond"
+	name = "blortz to dorpel"
 	category = "Transmutation"
 	result = list(/obj/item/roguegem/diamond = 1)
 	reqs = list(/obj/item/roguegem/blue = 2, /obj/item/rogueore/gold = 2)
@@ -303,7 +303,7 @@
 	verbage_simple = "transmute"
 
 /datum/crafting_recipe/roguetown/alchemy/d2ros
-	name = "diamond to riddle of steel" /// holy grail requires legendary. (sell price on average is 350. rontz and diamond worth 100 each. you get to legndary you deserve 150-200 profit)
+	name = "dorpel to riddle of steel" /// holy grail requires legendary. (sell price on average is 350. rontz and diamond worth 100 each. you get to legndary you deserve 150-200 profit)
 	category = "Transmutation"
 	result = list(/obj/item/riddleofsteel = 1)
 	reqs = list(/obj/item/roguegem/diamond = 2, /obj/item/rogueore/iron = 1, /obj/item/rogueore/coal = 1)
@@ -378,3 +378,26 @@
 		/obj/item/alch/bonemeal = 1,
 		)
 	craftdiff = 2
+	subtype_reqs = FALSE //so you dont craft bandages from bandages
+
+/datum/crafting_recipe/roguetown/alchemy/glut
+	name = "glut (from gnoll flesh)"
+	craftdiff = 4
+	result = list(
+		/obj/item/roguegem/blood_diamond
+		)
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/rogue/meat/steak/gnoll = 2,
+		)
+	subtype_reqs = TRUE
+
+/datum/crafting_recipe/roguetown/alchemy/gnoll_flesh
+	name = "gnoll flesh (from glut)"
+	craftdiff = 4
+	result = list(
+		/obj/item/reagent_containers/food/snacks/rogue/meat/steak/gnoll
+		)
+	reqs = list(
+		/obj/item/roguegem/blood_diamond = 2,
+		)
+	subtype_reqs = TRUE

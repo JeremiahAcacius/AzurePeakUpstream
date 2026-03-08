@@ -84,7 +84,8 @@
 						/obj/item/reagent_containers/food/snacks/fat = 2,
 						/obj/item/natural/hide = 2,
 						/obj/item/natural/fur/goat = 1,
-						/obj/item/natural/bundle/bone/full = 1, /obj/item/alch/sinew = 4, /obj/item/alch/bone = 1, /obj/item/alch/viscera = 2, /obj/item/natural/head/goat = 1)
+						/obj/item/natural/bundle/bone/full = 1, /obj/item/alch/sinew = 4, /obj/item/alch/bone = 1, /obj/item/alch/viscera = 2)
+	head_butcher = /obj/item/natural/head/goat
 	base_intents = list(/datum/intent/simple/headbutt)
 	health = 80
 	maxHealth = 80
@@ -117,6 +118,15 @@
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	ai_controller = /datum/ai_controller/generic/goat //slightly more agressive retaliation
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/tame
+	tame = TRUE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/tame/saddled/Initialize()
+	. = ..()
+	ssaddle = new /obj/item/natural/saddle(src)
+	// excuse me please fucking compile again thank you
+	update_icon()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/get_sound(input)
 	switch(input)
@@ -226,7 +236,8 @@
 						/obj/item/reagent_containers/food/snacks/fat = 2,
 						/obj/item/natural/hide = 2,
 						/obj/item/natural/fur/goat = 1,
-						/obj/item/natural/bundle/bone/full = 1, /obj/item/alch/sinew = 4, /obj/item/alch/bone = 1, /obj/item/alch/viscera = 2, /obj/item/natural/head/goat = 1)
+						/obj/item/natural/bundle/bone/full = 1, /obj/item/alch/sinew = 4, /obj/item/alch/bone = 1, /obj/item/alch/viscera = 2)
+	head_butcher = /obj/item/natural/head/goat
 	faction = list("goats")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	attack_verb_continuous = "headbutts"
@@ -264,6 +275,11 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/tame
 	tame = TRUE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goatmale/tame/saddled/Initialize()
+	. = ..()
+	ssaddle = new /obj/item/natural/saddle(src)
+	update_icon()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/update_icon()
 	cut_overlays()

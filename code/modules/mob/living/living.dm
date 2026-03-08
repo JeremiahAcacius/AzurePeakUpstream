@@ -43,6 +43,7 @@
 	sharedSoullinks = null
 	if(craftingthing)
 		QDEL_NULL(craftingthing)
+	QDEL_LIST(simple_wounds)
 	return ..()
 
 /mob/living/onZImpact(turf/T, levels)
@@ -394,6 +395,12 @@
 		return FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
 		return FALSE
+	if(isliving(AM) && buckled)
+		var/datum/component/riding/riding_datum = buckled.GetComponent(/datum/component/riding)
+		if(riding_datum)
+			var/mob/living/target = AM
+			to_chat(src, span_warning("I can't drag [target] while mounted."))
+			return FALSE
 
 	AM.add_fingerprint(src)
 
@@ -474,11 +481,11 @@
 			var/used_limb = C.find_used_grab_limb(src)
 			O.name = "[C]'s [parse_zone(used_limb)]"
 			var/obj/item/bodypart/BP = C.get_bodypart(check_zone(used_limb))
-			C.grabbedby += O
+			LAZYADD(C.grabbedby, O)
 			O.grabbed = C
 			O.grabbee = src
 			O.limb_grabbed = BP
-			BP.grabbedby += O
+			LAZYADD(BP.grabbedby, O)
 			if(item_override)
 				O.sublimb_grabbed = item_override
 			else
@@ -514,7 +521,8 @@
 				return FALSE
 
 		update_pull_movespeed()
-		set_pull_offsets(target, state)
+		if(!target.is_shifted)
+			set_pull_offsets(target, state)
 	else
 		if(!supress_message)
 			var/sound_to_play = 'sound/combat/shove.ogg'
@@ -633,7 +641,8 @@
 			if(pulledby && pulledby == pulling)
 				reset_offsets("pulledby")
 			M.reset_offsets("pulledby")
-			reset_pull_offsets(pulling)
+			if(!M.is_shifted)
+				reset_pull_offsets(pulling)
 			if(HAS_TRAIT(M, TRAIT_GARROTED))
 				var/obj/item/inqarticles/garrote/gcord = src.get_active_held_item()
 				if(!gcord)
@@ -898,8 +907,7 @@
 		if(mind)
 			if(admin_revive)
 				mind.remove_antag_datum(/datum/antagonist/zombie)
-			for(var/S in mind.spell_list)
-				var/obj/effect/proc_holder/spell/spell = S
+			for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
 				spell.updateButtonIcon()
 		qdel(GetComponent(/datum/component/rot))
 
@@ -916,7 +924,7 @@
 
 /mob/living/Crossed(atom/movable/AM)
 	. = ..()
-	for(var/i in get_equipped_items())
+	for(var/i as anything in get_equipped_items())
 		var/obj/item/item = i
 		SEND_SIGNAL(item, COMSIG_ITEM_WEARERCROSSED, AM, src)
 
@@ -1205,6 +1213,7 @@
 		client.chargedprog = 0
 		client.tcompare = null //so we don't shoot the attack off
 		client.mouse_pointer_icon = 'icons/effects/mousemice/human.dmi'
+		STOP_PROCESSING(SSmousecharge, client)
 	if(used_intent)
 		used_intent.on_mouse_up()
 	if(mmb_intent)
@@ -1694,7 +1703,13 @@
 	if(!istype(spread_to))
 		return
 
+	if(!(mobility_flags & MOBILITY_STAND))
+		return
+
 	if(HAS_TRAIT(spread_to, TRAIT_NOFIRE) || HAS_TRAIT(src, TRAIT_NOFIRE))
+		return
+
+	if(!prob(25))
 		return
 
 	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
@@ -1837,6 +1852,7 @@
 			layer = initial(layer)
 	update_cone_show()
 	update_transform()
+	lying_prev = lying
 
 	// Movespeed mods based on arms/legs quantity
 	if(!get_leg_ignore())
@@ -2321,10 +2337,24 @@
 	offered_item_ref = WEAKREF(offered_item)
 
 	var/stealthy = (m_intent == MOVE_INTENT_SNEAK)
+	var/obj/item/reagent_containers/glass/offered_item_other = null
+	if(istype(offered_item, /obj/item/reagent_containers/glass) && offered_item?.reagents?.maximum_volume > 0) // we have a drink in our hand
+		offered_item_other = offered_to.offered_item_ref?.resolve()
 
 	if(stealthy)
 		to_chat(src, span_notice("I secretly offer [offered_item] to [offered_to]."))
-		to_chat(offered_to, span_notice("[src] secretly offers [offered_item] to me..."))
+		to_chat(offered_to, span_notice("[offered_to] secretly offers [offered_item] to me..."))
+	else if(!isnull(offered_item_other) && istype(offered_item_other) && offered_item_other?.reagents?.maximum_volume > 0) // Credit to tmyqlfpir; allows for the clinking of everything up to blacksteel tankards.
+		playsound(src,offered_item_other.reagents.maximum_volume > 50 ? 'sound/misc/clink_drink_big.ogg' : 'sound/misc/clink_drink.ogg', 100, TRUE) //Adds a new sound if the clinked container is above 50 drams in size.
+		addtimer(CALLBACK(src, PROC_REF(stop_offering_item)), 0.6 SECONDS)
+		addtimer(CALLBACK(offered_to, PROC_REF(stop_offering_item)), 0.6 SECONDS)
+		visible_message(
+			span_notice("[src] clinks [offered_item] with [offered_to]!"), \
+			span_notice("I clink [offered_item] with [offered_to]!"), \
+			vision_distance = COMBAT_MESSAGE_RANGE, \
+			ignored_mobs = list(offered_to)
+		)
+		to_chat(offered_to, span_notice("[src] clinks [offered_item] with me!"))
 	else
 		visible_message(
 			span_notice("[src] offers [offered_item] to [offered_to] with an outstretched hand."), \
