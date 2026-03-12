@@ -210,7 +210,8 @@
 	name = "'armoured avantyne barbute' morphing elixir"
 	target_items = list(
 		/obj/item/clothing/head/roguetown/helmet/heavy/knight/armet				= /obj/item/clothing/head/roguetown/helmet/heavy/knight/armet/dakken,
-		/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull		= /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull/dakken
+		/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull		= /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull/dakken,
+		/obj/item/clothing/head/roguetown/helmet/heavy/barbute/visor            = /obj/item/clothing/head/roguetown/helmet/heavy/barbute/visor/dakken
 	)
 	result_item = null
 
@@ -255,6 +256,15 @@
 		/obj/item/clothing/suit/roguetown/armor/plate/full/fluted 	= /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/legacy,
 		/obj/item/clothing/suit/roguetown/armor/plate/full 			= /obj/item/clothing/suit/roguetown/armor/plate/full/legacy,
 		/obj/item/clothing/suit/roguetown/armor/plate	  			= /obj/item/clothing/suit/roguetown/armor/plate/legacy
+		)
+	result_item = null
+
+/obj/item/enchantingkit/triumph_armorkit_drow
+	name = "'Drowcraft' armor morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of.. </br>..a set of Hardened Leather Armor.. </br>.. or a set of Studded Leather Armor."
+	target_items = list(
+		/obj/item/clothing/suit/roguetown/armor/leather/heavy 		= /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest,
+		/obj/item/clothing/suit/roguetown/armor/leather/studded		= /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest
 		)
 	result_item = null
 
