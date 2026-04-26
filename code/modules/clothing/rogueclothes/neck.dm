@@ -82,6 +82,7 @@
 				icon_state = "fullpadded_down"
 			flags_inv = HIDEEARS|HIDEHAIR
 			body_parts_covered = NECK|HAIR|EARS|HEAD
+			body_parts_covered_dynamic = body_parts_covered
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
 				H.update_inv_neck()
@@ -92,6 +93,7 @@
 				icon_state = "fullpadded_neck"
 			flags_inv = null
 			body_parts_covered = NECK
+			body_parts_covered_dynamic = body_parts_covered
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
 				H.update_inv_neck()
@@ -211,6 +213,7 @@
 				icon_state = "chaincoif"
 			flags_inv = HIDEEARS|HIDEHAIR
 			body_parts_covered = NECK|HAIR|EARS|HEAD
+			body_parts_covered_dynamic = body_parts_covered
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
 				H.update_inv_neck()
@@ -221,6 +224,7 @@
 				icon_state = "chaincoif_t"
 			flags_inv = null
 			body_parts_covered = NECK
+			body_parts_covered_dynamic = body_parts_covered
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
 				H.update_inv_neck()
@@ -367,8 +371,8 @@
 	update_icon()
 
 /obj/item/clothing/neck/roguetown/fencerguard/generic
-	color = "#503630"
-	detail_color = "#503630"
+	color = "#FFFFFF"
+	detail_color = "#5E4440"
 
 /obj/item/clothing/neck/roguetown/gorget/forlorncollar
 	name = "forlorn collar"

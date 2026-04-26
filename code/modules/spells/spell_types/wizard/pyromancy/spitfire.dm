@@ -26,7 +26,6 @@
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = 5.5 SECONDS
-	is_implement_scaled_spell = TRUE
 	attunement_school = ASPECT_NAME_PYROMANCY
 
 	associated_skill = /datum/skill/magic/arcane
@@ -54,6 +53,11 @@
 
 /obj/projectile/magic/spitfire/on_hit(target)
 	..()
+	var/turf/epicenter = get_turf(target)
+	if(epicenter)
+		new /obj/effect/temp_visual/explosion(epicenter)
+		playsound(epicenter, pick('sound/magic/fireball.ogg', 'sound/misc/explode/bottlebomb (2).ogg'), 120, TRUE, 8)
+		playsound(epicenter, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 4)
 	if(ismob(target))
 		var/mob/living/M = target
 		if(M.anti_magic_check())
