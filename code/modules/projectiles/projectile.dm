@@ -11,6 +11,7 @@
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
+	light_system = MOVABLE_LIGHT
 	//The sound this plays on impact.
 	var/hitsound = 'sound/blank.ogg'
 	var/hitsound_wall = ""
@@ -122,6 +123,8 @@
 	var/reflectable = NONE // Can it be reflected or not?
 	/// Whether this projectile can be deflected by Guard (clash status). Opt-in per subtype.
 	var/guard_deflectable = FALSE
+	/// If TRUE, Guard-deflecting this projectile exposes its firer (riposte punish). Arcyne/wizard bolts opt in.
+	var/expose_caster_on_deflect = FALSE
 		//Effects
 	var/stun = 0
 	var/knockdown = 0
