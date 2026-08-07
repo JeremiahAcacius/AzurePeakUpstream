@@ -83,6 +83,26 @@
 	desc = "I urgently need to drink something! Anything!"
 	icon_state = "thirst3"
 
+/datum/status_effect/debuff/spell_vampire_block
+	id = "spell_vampire_block"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/spell_vampire_block
+	duration = 60 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/debuff/spell_vampire_block/on_apply()
+	. = ..()
+	if(.)
+		ADD_TRAIT(owner, TRAIT_SPELL_VAMPIRE_BLOCK, STATUS_EFFECT_TRAIT)
+
+/datum/status_effect/debuff/spell_vampire_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_SPELL_VAMPIRE_BLOCK, STATUS_EFFECT_TRAIT)
+	return ..()
+
+/atom/movable/screen/alert/status_effect/debuff/spell_vampire_block
+	name = "Vitae Surge"
+	desc = "My vampiric power blocks the flow of the arcyne in my vein - I cannot utilize conventional magick until it subsides."
+	icon_state = "debuff"
+
 
 
 /datum/status_effect/debuff/vthirstt1
@@ -419,17 +439,6 @@
 	desc = "My ritual is complete, yet not without cost. I must gift my lux tyme to recover, before I can conduct another rite."
 	icon_state = "rituos_cooldown"
 
-/datum/status_effect/debuff/lux_exhausted
-	id = "lux_exhausted"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/lux_exhausted
-	effectedstats = list(STATKEY_STR = -2, STATKEY_WIL = -2, STATKEY_LCK = -2)
-	duration = 2 HOURS
-
-/atom/movable/screen/alert/status_effect/debuff/lux_exhausted
-	name = "Rituos Langouria"
-	desc = "Body and will alike, sacrificed to complete the rites for another. Your will shall be done, but it will be quite some time before your lux can sustain another rite."
-	icon_state = "rituos_exchange"
-
 /datum/status_effect/debuff/ritesexpended_heavy
 	id = "ritesexpended_heavy"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/ritesexpended_heavy
@@ -460,7 +469,7 @@
 	id = "revived" //For revive - your body DIDN'T rot, but it did suffer damage. Unlike being rotted, this one is only timed. Not forever.
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/revived
 	effectedstats = list(STATKEY_STR = -1, STATKEY_PER = -1, STATKEY_INT = -1, STATKEY_WIL = -1, STATKEY_CON = -1, STATKEY_SPD = -1, STATKEY_LCK = -1)
-	duration = 15 MINUTES		//Should be long enough to stop someone from running back into battle. Plus, this stacks with body-rot debuff. RIP.
+	duration = REVIVED_DEBUFF_DURATION		//Should be long enough to stop someone from running back into battle. Plus, this stacks with body-rot debuff. RIP.
 
 /atom/movable/screen/alert/status_effect/debuff/revived
 	name = "Revived" //Formerly 'Revival Sickness'.
@@ -525,9 +534,9 @@
 	icon_state = "revived_rot"
 
 /datum/status_effect/debuff/rotted_zombie
-	id = "rotted_zombie" //Replaces the flat-stat change, this should ONLY apply to zombies who have been dead for some time. Makes them easier to kill.
+	id = "rotted_zombie" //Replaces the flat-stat change, this should ONLY apply to zombies, makes them easier to kill
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/rotted_zombie
-	effectedstats = list(STATKEY_CON = -8) //No duration = infinate in time - this is removed on de-rot miricle OR de-rot surgery. Won't be applied unless you've been a zombie for ~20 min.
+	effectedstats = list(STATKEY_CON = -3, STATKEY_INT = -8) //No duration = infinate in time - this is removed on de-rot miricle OR de-rot surgery. Won't be applied unless you're rotting long enough to zombify.
 	examine_text = "<font color='#2c8b00'>SUBJECTPRONOUN's flesh bears the unmistakable signs of unnatural decay. An ill omen whispers that this corpse may yet walk again.</font>"
 
 /atom/movable/screen/alert/status_effect/debuff/rotted_zombie
@@ -538,7 +547,7 @@
 /datum/status_effect/debuff/permadeath
 	id = "permadeath"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/permadeath
-	duration = 10 MINUTES //Effectively determines how long a character is threatened with permadeath. Kicks into gear once the initial deathmark-imposed grace period completes. Timed to match Revival Sickness.
+	duration = PERMADEATH_DURATION //Effectively determines how long a character is threatened with permadeath. Kicks into gear once the initial deathmark-imposed grace period completes. Timed to match Revival Sickness.
 	examine_text = "<font color='#b40000'>SUBJECTPRONOUN appears haunted by an unseen burden. It feels as though their spirit hangs by the thinnest of threads. Another death may well be their last.</font>"
 
 /atom/movable/screen/alert/status_effect/debuff/permadeath
@@ -600,6 +609,35 @@
 	desc = "Something has chilled me to the bone! It's hard to move."
 	icon_state = "muscles"
 
+/datum/status_effect/debuff/blackvitae
+	id = "blackvitae"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/blackvitae
+	duration = 20 SECONDS
+
+/atom/movable/screen/alert/status_effect/debuff/blackvitae
+	name = "Bloodrot"
+	desc = span_bloody("BLACKENED ROT SEEPS INTO MY WOUNDS! IT HURTS, IT HURTS, IT HURTS, IT HURTS!!")
+	icon_state = "ritesexpended"
+
+/datum/status_effect/debuff/blackvitae/on_apply()
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/human/target = owner
+		var/newcolor = rgb(67, 67, 67)
+		var/datum/physiology/phy = target.physiology
+		phy.bleed_mod *= 1.5
+		phy.pain_mod *= 1.5
+		target.add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, newcolor), 20 SECONDS)
+
+/datum/status_effect/debuff/blackvitae/on_remove()
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/human/target = owner
+		var/datum/physiology/phy = target.physiology
+		phy.bleed_mod /= 1.5
+		phy.pain_mod /= 1.5
+
 /datum/status_effect/debuff/cold/greater
 	id = "Frozen"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/cold/greater
@@ -611,14 +649,6 @@
 	name = "Frozen"
 	desc = "An intense cold has seized my body! I can barely move."
 	icon_state = "muscles"
-
-/// wrestler verison of daze////
-/datum/status_effect/debuff/dazed/stunner
-	id = "discombobulated"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/dazed
-	effectedstats = list(STATKEY_CON = -2, STATKEY_INT = -2)
-	duration = 15 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
 
 ///// Freifechter Daze Variants /////
 /datum/status_effect/debuff/dazed/longsword
@@ -797,16 +827,6 @@
 /atom/movable/screen/alert/status_effect/debuff/shamanhood
 	name = "Lost Hood"
 	desc = "The sacred hood is lost. I feel frail and sapped without it."
-
-/datum/status_effect/debuff/lost_dungeoneer_hood
-	id = "dungeoneerhood"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/dungeoneer_hood
-	effectedstats = list(STATKEY_STR = -3, STATKEY_LCK = -3)
-
-/atom/movable/screen/alert/status_effect/debuff/dungeoneer_hood
-	name = "Gnarly Visage"
-	desc = "I am a repulsive freek looked down upon by everyone else. I'd do best to hide my visage once more."
-	icon_state = "muscles"
 
 ///////////////////////
 /// CLIMBING STUFF ///

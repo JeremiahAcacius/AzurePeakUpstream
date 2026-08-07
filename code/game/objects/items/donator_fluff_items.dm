@@ -102,9 +102,13 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 
-/datum/reagent/water/azurosa_tea
+/datum/reagent/consumable/azurosa_tea
 	name = "azurosa tea"
 	description = "A herbal tea that's been brewed from steeped-and-dried azurosa petals, providing slightly more health regeneration and antidotal properties."
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	drink_type = DRINKTYPE_CAFFEINE
+	quality = DRINK_VERYGOOD
+	hydration_factor = 5
 	reagent_state = LIQUID
 	color = "#5e50e9"
 	taste_description = "pleasantly floral sweetness"
@@ -112,7 +116,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 173
 
-/datum/reagent/water/azurosa_tea/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/azurosa_tea/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	if (M.mob_biotypes & MOB_BEAST)
 		M.adjustFireLoss(0.5  * REAGENTS_EFFECT_MULTIPLIER)
@@ -445,7 +449,7 @@
 	bypass_dupe_test = TRUE
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/donator_gothic
-	name = "gothic lightweight cuirass"
+	name = "gothic chestplate"
 	desc = "A magnificent steel cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
 	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
 	icon = 'icons/clothing/donor_clothes.dmi'
@@ -454,8 +458,8 @@
 	icon_state = "gcuirass"
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/psydon/donator_gothic
-	name = "gothic lightweight cuirass"
-	desc = "A magnificent steel cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
+	name = "gothic chestplate"
+	desc = "A magnificent ornate cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
 	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
@@ -463,7 +467,7 @@
 	icon_state = "gcuirass"
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/donator_gothic
-	name = "gothic fluted cuirass"
+	name = "gothic cuirass"
 	desc = "A magnificent fluted cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
 	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
 	icon = 'icons/clothing/donor_clothes.dmi'
@@ -472,13 +476,48 @@
 	icon_state = "gflutedcuirass"
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/ornate/donator_gothic
-	name = "gothic psydonic cuirass"
+	name = "gothic cuirass"
 	desc = "A magnificent ornate cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
 	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	item_state = "gpsycuirass"
 	icon_state = "gpsycuirass"
+
+/obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate/donator_gothic
+	name = "gothic plate armor"
+	desc = "A magnificent set of ornate plate armor, assembled by an Azurian mastersmith. The intricate fluting \
+	and interlocked plates are clear signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what \
+	truly matters in life."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	item_state = "gplate"
+	icon_state = "gplate"
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/donator_gothic
+	name = "gothic half-plate"
+	desc = "A magnificent set of half-plated steel armor, assembled by an Azurian mastersmith. The intricate fluting \
+	and interlocked plates are clear signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what \
+	truly matters in life."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	item_state = "gflutedhalfplate"
+	icon_state = "gflutedhalfplate"
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/ornate/donator_gothic
+	name = "gothic half-plate"
+	desc = "A magnificent set of half-plated ornate armor, assembled by an Azurian mastersmith. The intricate fluting \
+	and interlocked plates are clear signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what \
+	truly matters in life."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	item_state = "ghalfplate"
+	icon_state = "ghalfplate"
+
+//
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/donator_gothic
 	name = "gothic iron cuirass"
@@ -941,6 +980,13 @@
 	desc = "An elegantly decorated dagger for an elegantly decorated wielder."
 	icon_state = "donator_decdagger"
 	sheathe_icon = "donator_decdagger"
+	icon = 'icons/obj/items/donor_weapons.dmi'
+
+/obj/item/rogueweapon/sword/sabre/dec/donator_elegant
+	name = "elegantly decorated sabre"
+	desc = "An elegantly decorated sabre for an elegantly decorated wielder."
+	icon_state = "donator_decsabre"
+	sheathe_icon = "donator_decsword"
 	icon = 'icons/obj/items/donor_weapons.dmi'
 
 /obj/item/rogueweapon/katar/donator_elegant
@@ -1948,6 +1994,32 @@ As Excaliber."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 
+// LimeTease
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/limetease
+	name = "serpentine bascinet"
+	desc = "A sturdy bascinet that seems to have been fitten with a long visor. Loosely resembles a drakynn or some sort of sea serpent."
+	icon_state = "limehelm"
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes64.dmi'
+	icon = 'icons/clothing/donor_clothes.dmi'
+	bloody_icon = 'icons/effects/blood64.dmi'
+
+/obj/item/clothing/head/roguetown/helmet/heavy/abyssorgreathelm/limetease
+	name = "serpentine bascinet"
+	desc = "A sturdy bascinet that seems to have been fitten with a long visor. Loosely resembles a drakynn or some sort of sea serpent."
+	icon_state = "limehelm"
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes64.dmi'
+	icon = 'icons/clothing/donor_clothes.dmi'
+	bloody_icon = 'icons/effects/blood64.dmi'
+	adjustable = CAN_CADJUST
+
+/obj/item/clothing/head/roguetown/helmet/heavy/abyssorgreathelm/limetease/ComponentInitialize()
+	..()
+	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)
+
 /obj/item/clothing/head/roguetown/octopus/ComponentInitialize()
 	..()
 	AddComponent(/datum/component/adjustable_clothing, \
@@ -2200,6 +2272,23 @@ As Excaliber."
 	worn_offsets = list("x" = 0, "y" = 14)
 	color = null
 
+/obj/item/clothing/cloak/longest_night
+	name = "Longest Night Cloak"
+	desc = "A silver lined cloak, capable of quickly being wrapped around the arm for comfort. \
+	The Longest Night sect is an underground 'association,' those involved are often those who wish to be the least, and those who wish to be a part will never be. \
+	Few know of the sect, fewer of their secrets.\ </br>Inside the cloak, woven words preach,\ </br>‎<font color='c4c9d2'>Are those within the cave to be faulted, when all they know of reality are the shadows it casts on the wall?\
+	 </br>Fault or not, it falls upon us to lead them out of that wretched cave.</font>"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	experimental_inhand = FALSE
+	experimental_onback = FALSE
+	alternate_worn_layer = 16
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	icon_state = "night_cloak"
+	lefthand_file = 'icons/mob/inhands/weapons/rogue_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/rogue_righthand.dmi'
+	item_state = "night_cloak"
+	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_BACK_L
+
 // MORTOSASYE
 /obj/item/rogueweapon/woodstaff/implement/grand/morto
 	base_implement_name = null
@@ -2269,3 +2358,29 @@ As Excaliber."
 	<font color='1B1B2A'>'Even though He may be gone, we have not lost the ability to Endure hardship.'</font>"
 	icon_state = "athena_psyrapier"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
+
+// ATICIUS
+/obj/item/rogueweapon/sword/long/aticius
+	name = "\improper For Love's Sake"
+	desc = "An oversized cleaver, fashioned out of polished gilbranze. A psycruciform starguard fits at the hilt, where a strip of cloth has been tied, dyed in Eoran pink.<br>\
+	The metal is not alive. Perhaps it never will be. Perhaps that is the point. A blade for a tyme that is not now, and may never be - yet it is here, and undeniable.<br>\
+	'Liebe. Do you know how long forever is?'<br>\
+	'Liebe. This is a promise to remember. From me, to you.'<br>\
+	'I promise that, 'til the sands are amaranthine and Noc wanders darkly...'<br>\
+	'That I will be here with you. For love's sake.'"
+	icon_state = "fls"
+	sheathe_icon = "fls"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	swingsound = BLADEWOOSH_HUGE
+
+/obj/item/rogueweapon/sword/long/aticius/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_GILBRANZE_ARTIFICE)
+
+// OCTUS
+/obj/item/rogueweapon/greatsword/falling_star
+    name = "Falling Star"
+    desc = "A curved executioner's blade designated as suicidal because of its ridiculously unwieldy nature. \
+	Its niche gained popularity among Graggarite warlords for its sheer raw force and homage to the Darkstar, a descending omen of devastation and war. \
+	The curved blade design makes it suitable for swings and chops, but poor for stabbing victims."
+    icon = 'icons/obj/items/donor_weapons_64.dmi'
+    icon_state = "fallingstar"
