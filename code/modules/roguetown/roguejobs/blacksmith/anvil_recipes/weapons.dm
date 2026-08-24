@@ -1,6 +1,6 @@
 /datum/anvil_recipe/weapons
 	abstract_type = /datum/anvil_recipe/weapons
-	appro_skill = /datum/skill/craft/weaponsmithing  // inheritance yay !!
+	appro_skill = /datum/skill/craft/weaponsmithing	// inheritance yay !!
 	i_type = "Weapons"
 
 /datum/anvil_recipe/weapons/aalloy
@@ -466,7 +466,7 @@
 	name = "Javelin, Bronze (+1 Small Log) (x2)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/grown/log/tree/small)
-	created_item =  /obj/item/ammo_casing/caseless/rogue/javelin/bronze
+	created_item =	/obj/item/ammo_casing/caseless/rogue/javelin/bronze
 	display_category = ITEM_CAT_WEAPONS_AMMO
 	createditem_num = 2
 
@@ -485,6 +485,13 @@
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/rogueweapon/sword/iron
 	display_category = ITEM_CAT_WEAPONS_SWORDS
+
+/datum/anvil_recipe/weapons/bronze/battlemace/iron
+	name = "Warclub, Iron (+1 Iron)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/rogueweapon/mace/warhammer/bronze/iron
+	display_category = ITEM_CAT_WEAPONS_MACES
 
 /datum/anvil_recipe/weapons/iron/sabre
 	name = "Sabre, Iron"
@@ -727,6 +734,13 @@
 	created_item = /obj/item/rogueweapon/huntingknife/idagger/steel
 	display_category = ITEM_CAT_WEAPONS_DAGGERS
 	createditem_num = 1
+
+/datum/anvil_recipe/weapons/bronze/battlemace/steel
+	name = "Warclub, Steel (+1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/rogueweapon/mace/warhammer/bronze/steel
+	display_category = ITEM_CAT_WEAPONS_MACES
 
 /datum/anvil_recipe/weapons/steel/dagger_trainer
 	name = "Dagger Trainer, Steel"
@@ -1186,6 +1200,13 @@
 	created_item = /obj/item/rogueweapon/huntingknife/idagger/silver
 	display_category = ITEM_CAT_WEAPONS_DAGGERS
 
+/datum/anvil_recipe/weapons/bronze/battlemace/silver
+	name = "Warclub, Silver (+1 Silver)"
+	req_bar = /obj/item/ingot/silver
+	additional_items = list(/obj/item/ingot/silver)
+	created_item = /obj/item/rogueweapon/mace/warhammer/bronze/silver
+	display_category = ITEM_CAT_WEAPONS_MACES
+
 /datum/anvil_recipe/weapons/silver/huntingknife
 	name = "Hunting Knife, Silver"
 	req_bar = /obj/item/ingot/silver
@@ -1231,7 +1252,7 @@
 	req_bar = /obj/item/ingot/silver
 	additional_items = list(/obj/item/ingot/silver, /obj/item/natural/hide/cured)
 	created_item = /obj/item/rogueweapon/handclaw/gronn/silver
-	display_category = ITEM_CAT_SMITHING_MISC
+	display_category = ITEM_CAT_WEAPONS_SWORDS
 
 /datum/anvil_recipe/weapons/silver/scabbard
 	name = "Scabbard, Silver-Decorated (+1 Sword's Scabbard)"
@@ -1290,7 +1311,7 @@
 	display_category = ITEM_CAT_WEAPONS_MACES
 
 /datum/anvil_recipe/weapons/silver/flangedmace
-	name = "Flanged Mace, Silver  (+1 Silver, +1 Small Log)"
+	name = "Flanged Mace, Silver	(+1 Silver, +1 Small Log)"
 	req_bar = /obj/item/ingot/silver
 	additional_items = list(/obj/item/ingot/silver, /obj/item/grown/log/tree/small)
 	created_item = /obj/item/rogueweapon/mace/cudgel/flanged/silver
@@ -1497,7 +1518,7 @@
 	req_bar = /obj/item/ingot/steel
 	additional_items = list(/obj/item/grown/log/tree/small, /obj/item/natural/fibers)
 	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
-	display_category = ITEM_CAT_SMITHING_MISC
+	display_category = ITEM_CAT_ENG_COMBAT
 
 /datum/anvil_recipe/weapons/iron/bolts
 	name = "Crossbow Bolts (+2 Stick) (x10)"
@@ -1953,14 +1974,6 @@
 	i_type = "Weapons"
 	display_category = ITEM_CAT_WEAPONS_AXES
 
-/datum/anvil_recipe/weapons/psy/maul
-	name = "Psydonic Maul (+2 Blessed Silver, +1 Small Log)"
-	req_bar = /obj/item/ingot/silverblessed
-	created_item = /obj/item/rogueweapon/mace/maul/grand/psy
-	display_category = ITEM_CAT_WEAPONS_MACES
-	additional_items = list(/obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed, /obj/item/grown/log/tree/small)
-	i_type = "Weapons"
-
 /datum/anvil_recipe/weapons/psy/rapier
 	name = "Psydonic Rapier (+1 Blessed Silver)"
 	req_bar = /obj/item/ingot/silverblessed
@@ -2043,14 +2056,6 @@
 	req_bar = /obj/item/ingot/silverblessed/bullion
 	created_item = /obj/item/rogueweapon/halberd/psyhalberd
 	display_category = ITEM_CAT_WEAPONS_POLEARMS
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
-	i_type = "Weapons"
-
-/datum/anvil_recipe/weapons/psy/maul/inq
-	name = "Psydonic Maul (+2 Blessed Silver, +1 Small Log)"
-	req_bar = /obj/item/ingot/silverblessed/bullion
-	created_item = /obj/item/rogueweapon/mace/maul/grand/psy
-	display_category = ITEM_CAT_WEAPONS_MACES
 	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
 	i_type = "Weapons"
 
@@ -2328,7 +2333,7 @@
 	req_bar = /obj/item/ingot/blacksteel
 	additional_items = list(/obj/item/natural/silk)
 	created_item = /obj/item/rogueweapon/handclaw/blacksteel
-	display_category = ITEM_CAT_SMITHING_MISC
+	display_category = ITEM_CAT_WEAPONS_SWORDS
 
 /datum/anvil_recipe/weapons/blacksteel/quarterstaff
 	name = "Quarterstaff, Blacksteel (+3 Small Logs)"
